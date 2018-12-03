@@ -1,6 +1,8 @@
 import * as restify from "restify";
 import { envinronment } from "../common/environment";
 import { Router } from "../common/router";
+const mongoose = require("mongoose");
+const config = require("../config");
 
 export class Server {
   application: restify.Server;
@@ -17,6 +19,21 @@ export class Server {
         routers.map(router => router.applyRoutes(this.application));
 
         this.application.listen(envinronment.server.port, () => {
+          console.log('-------------')
+          console.log(config.db.uri)
+          console.log('-------------')
+          mongoose.connect(config.db.uri);
+
+          const db = mongoose.connection;
+
+          db.on("error", err => {
+            console.error(err);
+            process.exit(1);
+          });
+
+          db.once("open", () => {
+            console.log(`Server is listening on port ${config.port}`);
+          });
           resolve(this.application);
         });
       } catch (err) {

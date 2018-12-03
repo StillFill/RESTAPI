@@ -10,6 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@google-cloud/storage": "^2.3.1",
+    "mongodb": "^3.1.10",
+    "mongoose": "^5.3.14",
     "restify": "6.3.4"
   },
   "devDependencies": {

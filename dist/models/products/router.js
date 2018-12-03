@@ -9,13 +9,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const router_1 = require("../../common/router");
-const products_1 = require("../products/products");
+const products_1 = require("./products");
 class ProductsRouter extends router_1.Router {
     applyRoutes(application) {
         application.get("/get-products", (req, res, next) => __awaiter(this, void 0, void 0, function* () {
-            const products = yield products_1.default.getAll();
-            res.json({ products });
-            return next();
+            const products = yield products_1.Products.find();
+            res.header("Access-Control-Allow-Origin", "*");
+            return res.send(200, { response: products });
         }));
     }
 }
