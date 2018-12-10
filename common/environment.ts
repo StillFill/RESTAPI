@@ -1,3 +1,3 @@
 export const envinronment = {
-  server: { port: process.env.PORT || 8888 }
+  server: { port: process.env.PORT || 3007 }
 };
