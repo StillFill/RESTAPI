@@ -7,6 +7,7 @@ class ProductsRouter extends Router {
     application.get("/get-products", async (req, res, next) => {
       const products = await Products.find();
       res.header("Access-Control-Allow-Origin", "*");
+      console.log(products)
       return res.send(200, { response: products });
     });
   }

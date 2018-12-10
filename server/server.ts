@@ -3,6 +3,7 @@ import { envinronment } from "../common/environment";
 import { Router } from "../common/router";
 const mongoose = require("mongoose");
 const config = require("../config");
+const Model = require("../models/products/products.js");
 
 export class Server {
   application: restify.Server;
@@ -19,9 +20,9 @@ export class Server {
         routers.map(router => router.applyRoutes(this.application));
 
         this.application.listen(envinronment.server.port, () => {
-          console.log('-------------')
-          console.log(config.db.uri)
-          console.log('-------------')
+          console.log("-------------");
+          console.log(config.db.uri);
+          console.log("-------------");
           mongoose.connect(config.db.uri);
 
           const db = mongoose.connection;
@@ -32,6 +33,25 @@ export class Server {
           });
 
           db.once("open", () => {
+            try {
+              Model.Products.deleteMany({}, () => {
+                for (let i = 0; i < 20; i++) {
+                  const price = Model.getRandomPrice();
+                  console.log(price)
+                  const prod = new Model.Products({
+                    _id: new mongoose.mongo.ObjectId(),
+                    images: Model.shuffleImages(),
+                    name: `Lençol ${Math.floor(Math.random() * 20) + 1}`,
+                    category: Model.getRandomCategories(),
+                    price,
+                    discount_percentage: 30
+                  });
+                  prod.save();
+                }
+              });
+            } catch (err) {
+              console.log(err);
+            }
             console.log(`Server is listening on port ${config.port}`);
           });
           resolve(this.application);

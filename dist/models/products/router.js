@@ -15,6 +15,7 @@ class ProductsRouter extends router_1.Router {
         application.get("/get-products", (req, res, next) => __awaiter(this, void 0, void 0, function* () {
             const products = yield products_1.Products.find();
             res.header("Access-Control-Allow-Origin", "*");
+            console.log(products);
             return res.send(200, { response: products });
         }));
     }

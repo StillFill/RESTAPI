@@ -1,12 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const products_1 = require("./products");
+const Model = require('./products');
 class Methods {
     static getAll() {
-        return products_1.Products.find();
+        return Model.Products.find();
     }
     static getById(_id) {
-        const product = products_1.Products.findOne({ _id });
+        const product = Model.Products.findOne({ _id });
         return Promise.resolve(product);
     }
 }

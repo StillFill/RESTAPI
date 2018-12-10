@@ -1,12 +1,11 @@
-import { Products } from "./products";
-
+const Model = require('./products');
 export default class Methods {
   static getAll(): Promise<any[]> {
-    return Products.find();
+    return Model.Products.find();
   }
 
   static getById(_id: string): Promise<any> {
-    const product = Products.findOne({ _id });
+    const product = Model.Products.findOne({ _id });
     return Promise.resolve(product);
   }
 }
