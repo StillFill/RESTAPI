@@ -37,7 +37,6 @@ export class Server {
               Model.Products.deleteMany({}, () => {
                 for (let i = 0; i < 20; i++) {
                   const price = Model.getRandomPrice();
-                  console.log(price)
                   const prod = new Model.Products({
                     _id: new mongoose.mongo.ObjectId(),
                     images: Model.shuffleImages(),
