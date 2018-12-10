@@ -49,6 +49,7 @@ export class Server {
                   prod.save();
                 }
               });
+              console.log(Model.Products.find())
             } catch (err) {
               console.log(err);
             }
